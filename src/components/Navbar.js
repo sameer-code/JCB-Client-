@@ -1,45 +1,48 @@
-// src/components/Navbar.js
-import { useState } from 'react';
-import { Menu, X } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import { Menu, X } from "lucide-react";
 
 const Navbar = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setMenuOpen((prev) => !prev);
+  };
 
   return (
-    <>
-      {/* Top Navbar */}
-      <nav className="bg-[#0f172a] text-white flex justify-between items-center px-4 py-3 shadow-md fixed w-full z-50">
-        <h1 className="text-lg font-bold">Just Cash Back</h1>
-        <button onClick={() => setIsOpen(true)} className="md:hidden">
-          <Menu className="w-6 h-6" />
-        </button>
-      </nav>
+    <nav className="bg-gray-900 text-white shadow-md fixed top-0 w-full z-50">
+      <div className="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
+        <Link to="/" className="text-xl font-bold">
+          Just Cash Back
+        </Link>
 
-      {/* Mobile Sidebar */}
-      <div className={`fixed top-0 right-0 h-full w-64 bg-white z-50 shadow-lg transform transition-transform duration-300 ease-in-out ${isOpen ? "translate-x-0" : "translate-x-full"}`}>
-        <div className="flex justify-end p-4">
-          <button onClick={() => setIsOpen(false)}>
-            <X className="w-6 h-6 text-gray-800" />
-          </button>
+        <button onClick={toggleMenu} className="md:hidden">
+          {menuOpen ? <X size={26} /> : <Menu size={26} />}
+        </button>
+
+        {/* Desktop Menu */}
+        <div className="hidden md:flex space-x-6">
+          <Link to="/" className="hover:text-yellow-400">Home</Link>
+          <Link to="/stores" className="hover:text-yellow-400">Stores</Link>
+          <Link to="/register" className="hover:text-yellow-400">Register</Link>
+          <Link to="/login" className="hover:text-yellow-400">Login</Link>
+          <Link to="/wallet" className="hover:text-yellow-400">Wallet</Link>
         </div>
-        <ul className="flex flex-col px-6 space-y-4 text-lg text-gray-800">
-          <li><Link to="/" onClick={() => setIsOpen(false)}>Home</Link></li>
-          <li><Link to="/stores" onClick={() => setIsOpen(false)}>Stores</Link></li>
-          <li><Link to="/register" onClick={() => setIsOpen(false)}>Register</Link></li>
-          <li><Link to="/login" onClick={() => setIsOpen(false)}>Login</Link></li>
-          <li><Link to="/wallet" onClick={() => setIsOpen(false)}>Wallet</Link></li>
-        </ul>
       </div>
 
-      {/* Overlay */}
-      {isOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-40 z-40" onClick={() => setIsOpen(false)} />
-      )}
-
-      {/* Spacer */}
-      <div className="h-14" />
-    </>
+      {/* Mobile Menu (Zingoy-style slide dropdown) */}
+      <div
+        className={`md:hidden bg-gray-800 text-white px-6 py-4 space-y-4 transition-all duration-300 ease-in-out ${
+          menuOpen ? "max-h-96 opacity-100" : "max-h-0 overflow-hidden opacity-0"
+        }`}
+      >
+        <Link to="/" className="block hover:text-yellow-400" onClick={toggleMenu}>Home</Link>
+        <Link to="/stores" className="block hover:text-yellow-400" onClick={toggleMenu}>Stores</Link>
+        <Link to="/register" className="block hover:text-yellow-400" onClick={toggleMenu}>Register</Link>
+        <Link to="/login" className="block hover:text-yellow-400" onClick={toggleMenu}>Login</Link>
+        <Link to="/wallet" className="block hover:text-yellow-400" onClick={toggleMenu}>Wallet</Link>
+      </div>
+    </nav>
   );
 };
 
