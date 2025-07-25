@@ -1,26 +1,15 @@
-import React, { useState } from 'react';
-import axios from 'axios';
+// src/pages/Login.js
+import React from "react";
 
 const Login = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-
-  const handleLogin = async () => {
-    try {
-      const res = await axios.post('/api/auth/login', { email, password });
-      localStorage.setItem('token', res.data.token);
-      alert('Logged in!');
-    } catch (err) {
-      alert('Login failed');
-    }
-  };
-
   return (
-    <div className="p-4">
-      <h2 className="text-xl mb-4">Login</h2>
-      <input placeholder="Email" className="block mb-2" value={email} onChange={e => setEmail(e.target.value)} />
-      <input placeholder="Password" type="password" className="block mb-2" value={password} onChange={e => setPassword(e.target.value)} />
-      <button onClick={handleLogin} className="bg-blue-600 text-white px-4 py-2">Login</button>
+    <div className="max-w-md mx-auto p-6 bg-white mt-6 shadow-lg rounded-xl">
+      <h2 className="text-2xl font-bold text-center text-green-700 mb-4">Login</h2>
+      <form className="space-y-4">
+        <input type="email" placeholder="Email" className="w-full border p-2 rounded" />
+        <input type="password" placeholder="Password" className="w-full border p-2 rounded" />
+        <button className="w-full bg-green-600 text-white p-2 rounded hover:bg-green-700">Login</button>
+      </form>
     </div>
   );
 };
