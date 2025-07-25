@@ -1,45 +1,45 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 function Navbar() {
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
-    <nav style={styles.nav}>
-      <div style={styles.logo}>Just Cash Back</div>
-      <ul style={styles.menu}>
-        <li><Link to="/" style={styles.link}>Home</Link></li>
-        <li><Link to="/stores" style={styles.link}>Stores</Link></li>
-        <li><Link to="/register" style={styles.link}>Register</Link></li>
-        <li><Link to="/login" style={styles.link}>Login</Link></li>
-        <li><Link to="/wallet" style={styles.link}>Wallet</Link></li>
-      </ul>
+    <nav className="bg-gray-900 text-white p-4">
+      <div className="container mx-auto flex justify-between items-center">
+        <div className="text-xl font-bold">
+          <Link to="/">Just Cash Back</Link>
+        </div>
+
+        <div className="md:hidden">
+          <button
+            onClick={() => setIsOpen(!isOpen)}
+            className="text-white focus:outline-none"
+          >
+            ☰
+          </button>
+        </div>
+
+        <ul className={`md:flex space-x-6 ${isOpen ? "block" : "hidden"} md:block`}>
+          <li>
+            <Link to="/" className="hover:text-yellow-400">Home</Link>
+          </li>
+          <li>
+            <Link to="/stores" className="hover:text-yellow-400">Stores</Link>
+          </li>
+          <li>
+            <Link to="/register" className="hover:text-yellow-400">Register</Link>
+          </li>
+          <li>
+            <Link to="/login" className="hover:text-yellow-400">Login</Link>
+          </li>
+          <li>
+            <Link to="/wallet" className="hover:text-yellow-400">Wallet</Link>
+          </li>
+        </ul>
+      </div>
     </nav>
   );
 }
-
-const styles = {
-  nav: {
-    display: "flex",
-    justifyContent: "space-between",
-    padding: "10px 20px",
-    background: "#222",
-    color: "#fff",
-    alignItems: "center",
-  },
-  logo: {
-    fontWeight: "bold",
-    fontSize: "20px",
-  },
-  menu: {
-    listStyle: "none",
-    display: "flex",
-    gap: "15px",
-    margin: 0,
-    padding: 0,
-  },
-  link: {
-    color: "#fff",
-    textDecoration: "none",
-  },
-};
 
 export default Navbar;
