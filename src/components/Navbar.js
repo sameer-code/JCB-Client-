@@ -1,75 +1,45 @@
-import React, { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
-import { Menu } from "lucide-react";
+// src/components/Navbar.js
+import { useState } from 'react';
+import { Menu, X } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const Navbar = () => {
-  const [menuOpen, setMenuOpen] = useState(false);
-  const location = useLocation();
-
-  const toggleMenu = () => {
-    setMenuOpen(!menuOpen);
-  };
-
-  const navLinks = [
-    { name: "Home", path: "/" },
-    { name: "Stores", path: "/stores" },
-    { name: "Register", path: "/register" },
-    { name: "Login", path: "/login" },
-    { name: "Wallet", path: "/wallet" },
-  ];
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <nav className="bg-gray-900 text-white shadow-md">
-      <div className="max-w-6xl mx-auto px-4">
-        <div className="flex justify-between items-center h-16">
-          <div className="text-2xl font-bold">Just Cash Back</div>
+    <>
+      {/* Top Navbar */}
+      <nav className="bg-[#0f172a] text-white flex justify-between items-center px-4 py-3 shadow-md fixed w-full z-50">
+        <h1 className="text-lg font-bold">Just Cash Back</h1>
+        <button onClick={() => setIsOpen(true)} className="md:hidden">
+          <Menu className="w-6 h-6" />
+        </button>
+      </nav>
 
-          {/* Desktop menu */}
-          <div className="hidden md:flex space-x-6">
-            {navLinks.map((link) => (
-              <Link
-                key={link.name}
-                to={link.path}
-                className={`hover:text-yellow-400 ${
-                  location.pathname === link.path
-                    ? "text-yellow-400 font-semibold"
-                    : ""
-                }`}
-              >
-                {link.name}
-              </Link>
-            ))}
-          </div>
-
-          {/* Mobile menu button */}
-          <div className="md:hidden">
-            <button onClick={toggleMenu}>
-              <Menu className="w-6 h-6" />
-            </button>
-          </div>
+      {/* Mobile Sidebar */}
+      <div className={`fixed top-0 right-0 h-full w-64 bg-white z-50 shadow-lg transform transition-transform duration-300 ease-in-out ${isOpen ? "translate-x-0" : "translate-x-full"}`}>
+        <div className="flex justify-end p-4">
+          <button onClick={() => setIsOpen(false)}>
+            <X className="w-6 h-6 text-gray-800" />
+          </button>
         </div>
+        <ul className="flex flex-col px-6 space-y-4 text-lg text-gray-800">
+          <li><Link to="/" onClick={() => setIsOpen(false)}>Home</Link></li>
+          <li><Link to="/stores" onClick={() => setIsOpen(false)}>Stores</Link></li>
+          <li><Link to="/register" onClick={() => setIsOpen(false)}>Register</Link></li>
+          <li><Link to="/login" onClick={() => setIsOpen(false)}>Login</Link></li>
+          <li><Link to="/wallet" onClick={() => setIsOpen(false)}>Wallet</Link></li>
+        </ul>
       </div>
 
-      {/* Mobile menu */}
-      {menuOpen && (
-        <div className="md:hidden absolute top-16 right-4 bg-gray-900 text-white rounded-xl shadow-xl flex flex-col space-y-4 px-6 py-4 z-50 transition-all duration-300 ease-in-out">
-          {navLinks.map((link) => (
-            <Link
-              key={link.name}
-              to={link.path}
-              onClick={toggleMenu}
-              className={`hover:text-yellow-400 ${
-                location.pathname === link.path
-                  ? "text-yellow-400 font-semibold"
-                  : ""
-              }`}
-            >
-              {link.name}
-            </Link>
-          ))}
-        </div>
+      {/* Overlay */}
+      {isOpen && (
+        <div className="fixed inset-0 bg-black bg-opacity-40 z-40" onClick={() => setIsOpen(false)} />
       )}
-    </nav>
+
+      {/* Spacer */}
+      <div className="h-14" />
+    </>
   );
 };
 
