@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { Menu } from "lucide-react";
@@ -17,7 +18,6 @@ const Navbar = () => {
         <Menu size={24} />
       </button>
 
-      {/* Desktop Menu */}
       <div className="hidden md:flex space-x-6">
         <Link to="/" className="hover:text-yellow-400">Home</Link>
         <Link to="/stores" className="hover:text-yellow-400">Stores</Link>
@@ -26,7 +26,6 @@ const Navbar = () => {
         <Link to="/wallet" className="hover:text-yellow-400">Wallet</Link>
       </div>
 
-      {/* Mobile Menu */}
       {menuOpen && (
         <div className="absolute top-16 right-4 bg-gray-900 text-white rounded-md shadow-lg flex flex-col space-y-3 px-6 py-4 z-50 md:hidden">
           <Link to="/" className="hover:text-yellow-400" onClick={toggleMenu}>Home</Link>
