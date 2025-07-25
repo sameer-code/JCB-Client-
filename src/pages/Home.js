@@ -1,5 +1,11 @@
-import React from 'react';
+import React from "react";
 
-export default function Home() {
-  return <h1>Welcome to Just Cash Back (JCB)</h1>;
-}
+const Home = () => {
+  return (
+    <div className="flex flex-col items-center justify-center min-h-[80vh] text-lg text-gray-800">
+      <p>Welcome to Just Cash Back (JCB)</p>
+    </div>
+  );
+};
+
+export default Home;
