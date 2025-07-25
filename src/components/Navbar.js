@@ -1,38 +1,72 @@
-
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { Menu } from "lucide-react";
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const location = useLocation();
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
   };
 
-  return (
-    <nav className="bg-gray-900 text-white px-4 py-3 flex items-center justify-between shadow-md">
-      <div className="text-xl font-bold">Just Cash Back</div>
-      
-      <button onClick={toggleMenu} className="md:hidden">
-        <Menu size={24} />
-      </button>
+  const navLinks = [
+    { name: "Home", path: "/" },
+    { name: "Stores", path: "/stores" },
+    { name: "Register", path: "/register" },
+    { name: "Login", path: "/login" },
+    { name: "Wallet", path: "/wallet" },
+  ];
 
-      <div className="hidden md:flex space-x-6">
-        <Link to="/" className="hover:text-yellow-400">Home</Link>
-        <Link to="/stores" className="hover:text-yellow-400">Stores</Link>
-        <Link to="/register" className="hover:text-yellow-400">Register</Link>
-        <Link to="/login" className="hover:text-yellow-400">Login</Link>
-        <Link to="/wallet" className="hover:text-yellow-400">Wallet</Link>
+  return (
+    <nav className="bg-gray-900 text-white shadow-md">
+      <div className="max-w-6xl mx-auto px-4">
+        <div className="flex justify-between items-center h-16">
+          <div className="text-2xl font-bold">Just Cash Back</div>
+
+          {/* Desktop menu */}
+          <div className="hidden md:flex space-x-6">
+            {navLinks.map((link) => (
+              <Link
+                key={link.name}
+                to={link.path}
+                className={`hover:text-yellow-400 ${
+                  location.pathname === link.path
+                    ? "text-yellow-400 font-semibold"
+                    : ""
+                }`}
+              >
+                {link.name}
+              </Link>
+            ))}
+          </div>
+
+          {/* Mobile menu button */}
+          <div className="md:hidden">
+            <button onClick={toggleMenu}>
+              <Menu className="w-6 h-6" />
+            </button>
+          </div>
+        </div>
       </div>
 
+      {/* Mobile menu */}
       {menuOpen && (
-        <div className="absolute top-16 right-4 bg-gray-900 text-white rounded-md shadow-lg flex flex-col space-y-3 px-6 py-4 z-50 md:hidden">
-          <Link to="/" className="hover:text-yellow-400" onClick={toggleMenu}>Home</Link>
-          <Link to="/stores" className="hover:text-yellow-400" onClick={toggleMenu}>Stores</Link>
-          <Link to="/register" className="hover:text-yellow-400" onClick={toggleMenu}>Register</Link>
-          <Link to="/login" className="hover:text-yellow-400" onClick={toggleMenu}>Login</Link>
-          <Link to="/wallet" className="hover:text-yellow-400" onClick={toggleMenu}>Wallet</Link>
+        <div className="md:hidden absolute top-16 right-4 bg-gray-900 text-white rounded-xl shadow-xl flex flex-col space-y-4 px-6 py-4 z-50 transition-all duration-300 ease-in-out">
+          {navLinks.map((link) => (
+            <Link
+              key={link.name}
+              to={link.path}
+              onClick={toggleMenu}
+              className={`hover:text-yellow-400 ${
+                location.pathname === link.path
+                  ? "text-yellow-400 font-semibold"
+                  : ""
+              }`}
+            >
+              {link.name}
+            </Link>
+          ))}
         </div>
       )}
     </nav>
