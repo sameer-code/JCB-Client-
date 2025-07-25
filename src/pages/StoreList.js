@@ -1,25 +1,22 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+// src/pages/Stores.js
+import React from "react";
 
-const StoreList = () => {
-  const [stores, setStores] = useState([]);
+const stores = [
+  { name: "Amazon", logo: "/assets/images/amazon.png", cashback: "5%" },
+  { name: "Flipkart", logo: "/assets/images/flipkart.png", cashback: "4%" },
+  { name: "Ajio", logo: "/assets/images/ajio.png", cashback: "6%" },
+];
 
-  useEffect(() => {
-    axios.get('/api/stores').then(res => setStores(res.data));
-  }, []);
-
+const Stores = () => {
   return (
-    <div className="p-4">
-      <h2 className="text-xl mb-4">Stores with Cashback</h2>
-      <div className="grid grid-cols-2 gap-4">
-        {stores.map(store => (
-          <div key={store._id} className="border p-4 rounded shadow">
-            <img src={store.logo} alt={store.name} className="h-12 mb-2" />
-            <h3>{store.name}</h3>
-            <p>{store.cashbackPercent}% Cashback</p>
-            <a href={store.affiliateLink} target="_blank" rel="noopener noreferrer">
-              <button className="bg-purple-600 text-white px-4 py-1 mt-2">Shop Now</button>
-            </a>
+    <div className="p-6">
+      <h2 className="text-2xl font-bold text-green-700 mb-4">Featured Stores</h2>
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+        {stores.map((store, index) => (
+          <div key={index} className="bg-white rounded-xl shadow p-4 text-center">
+            <img src={store.logo} alt={store.name} className="h-16 mx-auto mb-2" />
+            <h3 className="font-semibold text-lg">{store.name}</h3>
+            <p className="text-green-600">Up to {store.cashback} Cashback</p>
           </div>
         ))}
       </div>
@@ -27,4 +24,4 @@ const StoreList = () => {
   );
 };
 
-export default StoreList;
+export default Stores;
