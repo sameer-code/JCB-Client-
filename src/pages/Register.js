@@ -1,27 +1,16 @@
-import React, { useState } from 'react';
-import axios from 'axios';
+// src/pages/Register.js
+import React from "react";
 
 const Register = () => {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-
-  const handleRegister = async () => {
-    try {
-      await axios.post('/api/auth/register', { name, email, password });
-      alert('Registered!');
-    } catch (err) {
-      alert('Registration failed');
-    }
-  };
-
   return (
-    <div className="p-4">
-      <h2 className="text-xl mb-4">Register</h2>
-      <input placeholder="Name" className="block mb-2" value={name} onChange={e => setName(e.target.value)} />
-      <input placeholder="Email" className="block mb-2" value={email} onChange={e => setEmail(e.target.value)} />
-      <input placeholder="Password" type="password" className="block mb-2" value={password} onChange={e => setPassword(e.target.value)} />
-      <button onClick={handleRegister} className="bg-green-600 text-white px-4 py-2">Register</button>
+    <div className="max-w-md mx-auto p-6 bg-white mt-6 shadow-lg rounded-xl">
+      <h2 className="text-2xl font-bold text-center text-green-700 mb-4">Create Account</h2>
+      <form className="space-y-4">
+        <input type="text" placeholder="Name" className="w-full border p-2 rounded" />
+        <input type="email" placeholder="Email" className="w-full border p-2 rounded" />
+        <input type="password" placeholder="Password" className="w-full border p-2 rounded" />
+        <button className="w-full bg-green-600 text-white p-2 rounded hover:bg-green-700">Register</button>
+      </form>
     </div>
   );
 };
