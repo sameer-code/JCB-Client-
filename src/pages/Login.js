@@ -1,17 +1,38 @@
 // src/pages/Login.js
-import React from "react";
+import { useState } from "react";
 
-const Login = () => {
+export default function Login() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleLogin = (e) => {
+    e.preventDefault();
+    console.log("Logging in with:", { email, password });
+    // Add API call here
+  };
+
   return (
-    <div className="max-w-md mx-auto p-6 bg-white mt-6 shadow-lg rounded-xl">
-      <h2 className="text-2xl font-bold text-center text-green-700 mb-4">Login</h2>
-      <form className="space-y-4">
-        <input type="email" placeholder="Email" className="w-full border p-2 rounded" />
-        <input type="password" placeholder="Password" className="w-full border p-2 rounded" />
-        <button className="w-full bg-green-600 text-white p-2 rounded hover:bg-green-700">Login</button>
+    <div className="flex justify-center items-center h-screen bg-gray-100">
+      <form onSubmit={handleLogin} className="bg-white p-6 rounded shadow-md w-full max-w-md">
+        <h2 className="text-2xl font-bold mb-4">Login</h2>
+        <input
+          type="email"
+          placeholder="Email"
+          className="w-full mb-4 p-2 border border-gray-300 rounded"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+        />
+        <input
+          type="password"
+          placeholder="Password"
+          className="w-full mb-4 p-2 border border-gray-300 rounded"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+        />
+        <button className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded w-full">Login</button>
       </form>
     </div>
   );
-};
-
-export default Login;
+}
