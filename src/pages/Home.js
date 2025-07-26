@@ -1,10 +1,10 @@
 // src/pages/Home.js
 import React from "react";
-import HeroSection from "@/components/HeroSection";
-import FeaturedStores from "@/components/FeaturedStores";
-import FeaturedDeals from "@/components/FeaturedDeals";
-import Categories from "@/components/Categories";
-import HowItWorks from "@/components/HowItWorks";
+import HeroSection from "../components/HeroSection";
+import FeaturedStores from "../components/FeaturedStores";
+import FeaturedDeals from "../components/FeaturedDeals";
+import Categories from "../components/Categories";
+import HowItWorks from "../components/HowItWorks";
 
 const Home = () => {
   return (
